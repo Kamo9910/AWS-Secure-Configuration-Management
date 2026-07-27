@@ -5,6 +5,8 @@ A security-focused Infrastructure as Code (IaC) and Configuration Management pip
 ## 🛠️ Security & Communication Architecture
 
 Instead of exposing passwords in plain text within code repositories, this pipeline encrypts data at rest locally and securely provisions the target system over the network:
+<img src="./AWS Secure Configuration Management.gif" width="800">
+
 
 1. **Infrastructure Provisioning**: `terraform apply` deploys a secure network perimeter (Security Group) and boots an Amazon Linux 2023 EC2 node tagged with `Role = webserver`.
 2. **Local Data Encryption**: Sensitive database credentials are encrypted at rest locally inside `secrets.yml` using Ansible Vault (AES256). 
@@ -18,20 +20,19 @@ Instead of exposing passwords in plain text within code repositories, this pipel
 ### 1. Local Encrypted Vault (Secrets Management)
 Proof that sensitive passwords are encrypted locally and are completely safe from being leaked to public source control.
 
-*Drop your cat secrets.yml screenshot here*
-<!-- <img src="./screenshots/vault_encrypted.png" width="800"> -->
+<img src="./Screenshot (1366).png" width="800">
 
 ### 2. Playbook Execution Recap
 The successful terminal compilation showing the user creation, group mapping, and secure file injection tasks completed with zero errors.
 
 *Drop your terminal playbook recap screenshot here*
-<!-- <img src="./screenshots/playbook_recap.png" width="800"> -->
+<img src="./Screenshot (1367).png" width="800">
 
 ### 3. Server-Side Verification (Hardened Target State)
 A live view from inside the AWS instance showing the decrypted credentials sitting inside the secure configuration file alongside its restricted `-rw-------` read/write permission mask.
 
 *Drop your secure server terminal screenshot here*
-<!-- <img src="./screenshots/server_verification.png" width="800"> -->
+<img src="./Screenshot (1368).png" width="800">
 
 ---
 
@@ -53,6 +54,7 @@ A live view from inside the AWS instance showing the decrypted credentials sitti
    terraform init
    terraform apply -auto-approve
    ```
+<img src="./Screenshot (1369).png" width="800">
 4. Run the security configuration layer (Enter your vault password when prompted):
    ```bash
    ansible-playbook -i aws_ec2.yml security_deploy.yml --private-key=~/.ssh/kamo.pem --ask-vault-pass
